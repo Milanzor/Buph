@@ -1,0 +1,22 @@
+{
+  "name": "buph",
+  "version": "1.0.0",
+  "description": "Buph - general script runner",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Milanzor/Buph.git"
+  },
+  "author": "Milan van As <milanvanas@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Milanzor/Buph/issues"
+  },
+  "homepage": "https://github.com/Milanzor/Buph#readme",
+  "dependencies": {
+    "shelljs": "^0.8.3"
+  }
+}
