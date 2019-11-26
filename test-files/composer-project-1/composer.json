@@ -1,0 +1,14 @@
+{
+  "name": "milan/composer-project-1",
+  "authors": [
+    {
+      "name": "Milan van As",
+      "email": "milanvanas@gmail.com"
+    }
+  ],
+  "require": {},
+  "scripts": {
+    "hello-world": "echo Hello world",
+    "ping-world": "ping google.com"
+  }
+}
