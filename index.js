@@ -1,3 +1,14 @@
+const RunnerFactory = require('./src/Factory/RunnerFactory');
+
+class Test {
+    woop() {
+        console.log('Woop');
+    }
+}
+
+RunnerFactory(Test).woop();
+process.exit(0);
+
 // Fetch projects file
 let projectList = require('./projects.json');
 
