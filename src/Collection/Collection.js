@@ -16,6 +16,7 @@ class Collection {
      * @param identifier
      */
     add(item, identifier) {
+
         this._items[(identifier || item.constructor.name)] = item;
     }
 
@@ -27,7 +28,7 @@ class Collection {
     get(itemName) {
 
         if (!this.has(itemName)) {
-            throw new Error(`No such item in ${this.constructor.name}`);
+            throw new Error(`No such item in this Collection`);
         }
 
         return this._items[itemName];

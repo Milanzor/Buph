@@ -9,6 +9,7 @@
   "require": {},
   "scripts": {
     "hello-world": "echo Hello world",
-    "ping-world": "ping google.com"
+    "ping-world": "ping google.com",
+    "whoami": "whoami"
   }
 }

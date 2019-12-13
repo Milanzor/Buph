@@ -1,12 +1,11 @@
 const Factory = require('./Factory');
 const ProjectCollection = require('../Collection/ProjectCollection');
+const Project = require('../Lib/Project');
 
 /**
- *
- * @param classObj
  * @param identifier
  * @param constructorParameters
  */
-module.exports = function(classObj, constructorParameters, identifier) {
-    return Factory(ProjectCollection, classObj, constructorParameters, identifier);
+module.exports = function(constructorParameters, identifier) {
+    return Factory(ProjectCollection, Project, constructorParameters, identifier);
 };

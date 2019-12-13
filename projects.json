@@ -1,4 +1,5 @@
 {
   "NodeProjecto": "./test-files/node-project-1",
-  "ComposerProjecto": "./test-files/composer-project-1"
+  "ComposerProjecto": "./test-files/composer-project-1",
+  "DockerProjecto": "./test-files/docker-project-1"
 }

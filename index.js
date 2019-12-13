@@ -1,21 +1,11 @@
-const RunnerFactory = require('./src/Factory/RunnerFactory');
-
-class Test {
-    woop() {
-        console.log('Woop');
-    }
-}
-
-RunnerFactory(Test).woop();
-process.exit(0);
-
 // Fetch projects file
 let projectList = require('./projects.json');
-
-let Project = require('./src/Lib/Project');
-
+const ProjectFactory = require('./src/Factory/ProjectFactory');
 const path = require('path');
 
 Object.keys(projectList).forEach(function(projectName) {
-    new Project(projectName, path.resolve(projectList[projectName]));
+    ProjectFactory({projectPath: path.resolve(projectList[projectName]), projectName: projectName}, projectName);
 });
+
+// Thx SO
+// setInterval(() => {}, 1 << 30);

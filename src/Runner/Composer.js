@@ -1,42 +1,39 @@
 const fs = require('fs');
 const path = require('path');
-const shelljs = require('shelljs');
+const Runner = require('./Runner');
 
 /**
  *
  */
-class Composer {
+class Composer extends Runner {
 
     /**
      *
      * @return {Composer}
      */
-    constructor(projectPath) {
+    constructor(settings) {
 
-        this.projectPath = projectPath;
+        super(settings);
+
         try {
-            this.composerFile = require(path.resolve(projectPath, 'composer.json'));
+            this.projectFile = require(path.resolve(this.projectPath, 'composer.json'));
         } catch (e) {
-            this.composerFile = {};
+            this.projectFile = {};
         }
 
         this.scripts = this._getScripts();
     }
 
     _getScripts() {
-        return 'scripts' in this.composerFile ? this.composerFile.scripts : {};
+        return 'scripts' in this.projectFile ? this.projectFile.scripts : {};
     }
 
-    run(scriptName) {
-        if (scriptName in this.scripts) {
-            shelljs.cd(this.projectPath);
-            let running = shelljs.exec(`composer ${scriptName}`, {async: true, silent: true});
-            running.stdout.on('data', function(data) {
-                console.log(data);
-            });
-        }
+    formatCommand(scriptName) {
+        return {
+            command: 'composer',
+            args: ['run-script', scriptName]
+        };
     }
 }
-
 
 module.exports = Composer;

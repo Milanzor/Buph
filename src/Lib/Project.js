@@ -1,7 +1,11 @@
 const fs = require('fs');
 const path = require('path');
+const RunnerFactory = require('../Factory/RunnerFactory');
+const RunnerCollection = require('../Collection/RunnerCollection');
+
 const Composer = require('../Runner/Composer');
 const Node = require('../Runner/Node');
+const Docker = require('../Runner/Docker');
 
 /**
  *
@@ -10,38 +14,32 @@ class Project {
 
     /**
      *
-     * @param projectName
-     * @param projectPath
+     * @param settings
      */
-    constructor(projectName, projectPath) {
+    constructor(settings) {
 
-        this.projectName = projectName;
+        const {projectName, projectPath} = settings;
 
-        this.projectPath = projectPath;
-
-        if (!fs.existsSync(this.projectPath)) {
-            throw new Error(`Failed to initialize Project with path ${this.projectPath}`);
+        if (!fs.existsSync(projectPath)) {
+            throw new Error(`Failed to initialize Project with path ${projectPath}`);
         }
 
-        this.Runners = this.RunnerFactory();
-        if ('Composer' in this.Runners) {
-            this.Runners.Composer.run('hello-world');
-        }
-    }
+        if (fs.existsSync(path.resolve(projectPath, 'composer.json'))) {
+            let composerRunner = RunnerFactory(Composer, {projectPath: projectPath}, projectName);
+            composerRunner.run('whoami');
 
-    RunnerFactory() {
-
-        let runners = {};
-
-        if (fs.existsSync(path.resolve(this.projectPath, 'composer.json'))) {
-            runners.Composer = new Composer(this.projectPath);
         }
 
-        if (fs.existsSync(path.resolve(this.projectPath, 'package.json'))) {
-            runners.Node = new Node(this.projectPath);
+        if (fs.existsSync(path.resolve(projectPath, 'package.json'))) {
+            let nodeRunner = RunnerFactory(Node, {projectPath: projectPath}, projectName);
+            nodeRunner.run('whoami');
         }
 
-        return runners;
+        if (fs.existsSync(path.resolve(projectPath, 'docker-scripts.json'))) {
+            let dockerRunner = RunnerFactory(Docker, {projectPath: projectPath}, projectName);
+            dockerRunner.run('whoami');
+        }
+
     }
 
 }

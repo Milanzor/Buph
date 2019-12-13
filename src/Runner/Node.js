@@ -1,37 +1,39 @@
 const fs = require('fs');
 const path = require('path');
-const shelljs = require('shelljs');
+const Runner = require('./Runner');
 
 /**
  *
  */
-class Node {
+class Node extends Runner {
 
     /**
      *
      * @return {Node}
      */
-    constructor(projectPath) {
+    constructor(settings) {
 
-        this.projectPath = projectPath;
+        super(settings);
+
         try {
-            this.packageFile = require(path.resolve(projectPath, 'package.json'));
+            this.projectFile = require(path.resolve(this.projectPath, 'package.json'));
         } catch (e) {
-            this.packageFile = {};
+            this.projectFile = {};
         }
 
         this.scripts = this._getScripts();
+
     }
 
     _getScripts() {
-        return 'scripts' in this.packageFile ? this.packageFile.scripts : {};
+        return 'scripts' in this.projectFile ? this.projectFile.scripts : {};
     }
 
-    run(scriptName) {
-        if (scriptName in this.scripts) {
-            shelljs.cd(this.projectPath);
-            let run = shelljs.exec(`npm run ${scriptName}`);
-        }
+    formatCommand(scriptName) {
+        return {
+            command: 'npm',
+            args: ['run', scriptName]
+        };
     }
 }
 

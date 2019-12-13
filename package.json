@@ -16,7 +16,5 @@
     "url": "https://github.com/Milanzor/Buph/issues"
   },
   "homepage": "https://github.com/Milanzor/Buph#readme",
-  "dependencies": {
-    "shelljs": "^0.8.3"
-  }
+  "dependencies": {}
 }
